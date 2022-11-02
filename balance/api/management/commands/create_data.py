@@ -1,6 +1,6 @@
+from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
-from django.contrib.auth.models import User
 from ...models import Transaction, create_transfer
 
 
@@ -24,7 +24,7 @@ class Command(BaseCommand):
         Transaction.create_deposit(user=bar, amount=15000, currency='EUR')
         create_transfer(user_from=foo, user_to=bar, amount=5000, currency='EUR')
         Transaction.create_withdrawal(user=bar, amount=10000, currency='EUR')
-        self.stdout.write(f'Created example transactions')
+        self.stdout.write('Created example transactions')
 
     def _create_users(self):
         """

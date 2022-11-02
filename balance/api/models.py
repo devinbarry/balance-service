@@ -3,11 +3,10 @@ import uuid
 
 from extended_choices import Choices
 
-from django.db import models, transaction
 from django.conf import settings
+from django.db import models, transaction
 
 from common.validators import validate_positive
-
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +36,6 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f'{self.id}'
-
 
     @classmethod
     def create_deposit(cls, user, amount, currency='EUR', data=None):

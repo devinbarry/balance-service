@@ -1,9 +1,9 @@
 from decimal import Decimal
 
-from django.test import TestCase
 from django.contrib.auth.models import User
+from django.test import TestCase
 
-from ..factories import UserFactory, TransactionFactory
+from ..factories import TransactionFactory, UserFactory
 from ..models import Transaction
 
 

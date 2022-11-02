@@ -1,8 +1,10 @@
 from decimal import Decimal
+
 import factory
 from factory.django import DjangoModelFactory
 
 from django.contrib.auth.models import User
+
 from .models import Transaction
 
 
