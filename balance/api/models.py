@@ -3,7 +3,7 @@ import uuid
 
 from extended_choices import Choices
 
-from django.db import models
+from django.db import models, transaction
 from django.conf import settings
 
 from common.validators import validate_positive
@@ -38,3 +38,43 @@ class Transaction(models.Model):
     def __str__(self):
         return f'{self.id}'
 
+
+    @classmethod
+    def create_deposit(cls, user, amount, currency='EUR', data=None):
+        """
+        Create a deposit transaction.
+        """
+        if data is None:
+            data = {}
+        return cls.objects.create(
+            user=user,
+            amount=amount,
+            currency=currency,
+            data=data,
+            type=cls.TYPE.DEPOSIT,
+        )
+
+    @classmethod
+    def create_withdrawal(cls, user, amount, currency='EUR', data=None):
+        """
+        Create a withdrawal transaction.
+        """
+        if data is None:
+            data = {}
+        return cls.objects.create(
+            user=user,
+            amount=amount,
+            currency=currency,
+            data=data,
+            type=cls.TYPE.WITHDRAWAL,
+        )
+
+
+def create_transfer(user_from, user_to, amount, currency='EUR', data=None):
+    """
+    Create a pair of transactions (one withdrawal and one deposit)
+    for a transfer between users.
+    """
+    with transaction.atomic():
+        Transaction.create_withdrawal(user_from, amount, currency, data)
+        Transaction.create_deposit(user_to, amount, currency, data)
