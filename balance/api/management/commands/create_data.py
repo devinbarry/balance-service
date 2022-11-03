@@ -30,10 +30,12 @@ class Command(BaseCommand):
         """
         Create example users
         """
-        foo, created = User.objects.get_or_create(username='foo')
+        foo, created = User.objects.get_or_create(username='foo', first_name='Foo', last_name='Balance',
+                                                  email='foo@test.com')
         if created:
             self.stdout.write(f'Created new user: {foo}')
-        bar, created = User.objects.get_or_create(username='bar')
+        bar, created = User.objects.get_or_create(username='bar', first_name='Bar', last_name='Balance',
+                                                  email='bar@test.com')
         if created:
             self.stdout.write(f'Created new user: {bar}')
         return foo, bar
