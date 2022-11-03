@@ -26,7 +26,7 @@ class Transaction(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     currency = models.TextField(default='EUR', help_text='Currency of the transaction.')
     amount = models.DecimalField(max_digits=12, decimal_places=2, validators=[validate_positive])
-    data = models.JSONField()
+    data = models.JSONField(default=dict, help_text='Additional data for the transaction.', blank=True)
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='transactions')
     type = models.TextField(choices=TYPE, default=TYPE.DEPOSIT)
