@@ -18,11 +18,23 @@ class BalanceUtilsTestCase(TestCase):
         total = get_user_withdrawal_total(user)
         self.assertEqual(total, Decimal('100.00'))
 
+    def test_get_user_withdrawal_total_no_withdrawals(self):
+        user = UserFactory()
+        TransactionFactory.create_batch(10, user=user, type=Transaction.TYPE.DEPOSIT, amount=Decimal('10.00'))
+        total = get_user_withdrawal_total(user)
+        self.assertEqual(total, Decimal('0.00'))
+
     def test_get_user_deposit_total(self):
         user = UserFactory()
         TransactionFactory.create_batch(10, user=user, type=Transaction.TYPE.DEPOSIT, amount=Decimal('10.00'))
         total = get_user_deposit_total(user)
         self.assertEqual(total, Decimal('100.00'))
+
+    def test_get_user_deposit_total_no_deposits(self):
+        user = UserFactory()
+        TransactionFactory.create_batch(10, user=user, type=Transaction.TYPE.WITHDRAWAL, amount=Decimal('10.00'))
+        total = get_user_deposit_total(user)
+        self.assertEqual(total, Decimal('0.00'))
 
     def test_get_user_balance_1(self):
         user = UserFactory()
