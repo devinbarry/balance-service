@@ -30,3 +30,19 @@ cp example.env .env
 
 7. Run the tests:
    `docker compose -f local.yml run django python manage.py test`
+
+
+# Usage Notes
+
+1. Django admin is available at http://localhost:8000/admin
+2. The API is available at http://localhost:8000/api/v1
+
+3. Adding Transaction objects from the django admin backend will automatically update the user's balance. No checks are
+performed to ensure that the user has sufficient funds to cover the transaction, thus allowing for negative balances.
+
+4. Currency is currently ignored for simplicity, but it would be easily to filter transactions by currency and calculate balances for each currency.
+
+# API
+
+1. User balance can be fetched via the API at http://localhost:8000/api/v1/balances/{user_id}/
+2. User balance can be fetched via the API at http://localhost:8000/api/v1/balances/?username={username}
