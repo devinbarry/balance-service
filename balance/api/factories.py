@@ -32,3 +32,11 @@ class TransactionFactory(DjangoModelFactory):
 
     user = factory.SubFactory(UserFactory)
     type = Transaction.TYPE.DEPOSIT
+
+
+class WithdrawalFactory(TransactionFactory):
+    type = Transaction.TYPE.WITHDRAWAL
+
+
+class DepositFactory(TransactionFactory):
+    type = Transaction.TYPE.DEPOSIT
