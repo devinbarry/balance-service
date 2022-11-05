@@ -12,5 +12,8 @@ router = routers.DefaultRouter()
 urlpatterns = [
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('balances/<int:id>/', BalanceView.as_view(), name='balances'),
     path('balances/', BalanceView.as_view(), name='balances'),
 ]
+
+app_name = 'api'

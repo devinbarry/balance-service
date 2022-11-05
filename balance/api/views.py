@@ -1,4 +1,4 @@
-from rest_framework import permissions, authentication
+from rest_framework import authentication, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -15,10 +15,14 @@ class BalanceView(APIView):
     permission_classes = [permissions.IsAdminUser]
     authentication_classes = [authentication.SessionAuthentication]
 
-    def get(self, request, format=None):
+    def get(self, request, id=None, format=None):
         """
         Return a balance for a specific user.
         """
-        username = request.GET.get('username')
-        user = get_object_or_404(User, username=username)
+        if id:
+            user = get_object_or_404(User, pk=id)
+        else:
+            username = request.GET.get('username')
+            user = get_object_or_404(User, username=username)
+
         return Response(get_user_balance(user))
