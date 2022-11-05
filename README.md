@@ -46,3 +46,11 @@ performed to ensure that the user has sufficient funds to cover the transaction,
 
 1. User balance can be fetched via the API at http://localhost:8000/api/v1/balances/{user_id}/
 2. User balance can be fetched via the API at http://localhost:8000/api/v1/balances/?username={username}
+3. You must be authenticated as a superuser to access the API.
+
+# Using invoke
+
+1. Run the tests:
+   `inv docker.test`
+2. Linting + security testing:
+   `inv check`
