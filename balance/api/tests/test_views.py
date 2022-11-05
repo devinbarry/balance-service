@@ -52,3 +52,14 @@ class BalanceViewTestCase(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, Decimal('-2000.00'))
+
+
+class BalanceViewAuthTestCase(APITestCase):
+
+    def test_auth_required(self):
+        # Authenticate as a regular user
+        self.user = UserFactory(username='test_user')
+        self.client.force_authenticate(user=self.user)
+        url = reverse('api:balances')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
